@@ -85,7 +85,5 @@ namespace Geometry
             }
             return value;
         }
-
-
     }
 }
