@@ -11,12 +11,14 @@ namespace Geometry
             Console.WriteLine($"Height: {rectangle1.Height}");
             Console.WriteLine($"Perimeter: {rectangle1.Perimeter()}");
             Console.WriteLine($"Area: {rectangle1.Area()}\n");
+            rectangle1.Height = -4; // This will trigger the validation in the setter
 
             var rectangle2 = new Rectangle(5, 2);
             Console.WriteLine($"Width: {rectangle2.Width}");
             Console.WriteLine($"Height: {rectangle2.Height}");
             Console.WriteLine($"Perimeter: {rectangle2.Perimeter()}");
             Console.WriteLine($"Area: {rectangle2.Area()}\n");
+
 
             Console.WriteLine("Press any key...");
             Console.ReadKey();
@@ -37,10 +39,7 @@ namespace Geometry
         }
         public int Width
         {
-            get
-            {
-                return _width;
-            }
+            get => _width;
             set
             {
                 if (value > 0)
@@ -55,10 +54,7 @@ namespace Geometry
         }
         public int Height
         {
-            get
-            {
-                return _height;
-            }
+            get => _height;
             set
             {
                 if (value > 0)
