@@ -10,15 +10,19 @@ namespace Geometry
             Console.WriteLine($"Width: {rectangle1.Width}");
             Console.WriteLine($"Height: {rectangle1.Height}");
             Console.WriteLine($"Perimeter: {rectangle1.Perimeter()}");
-            Console.WriteLine($"Area: {rectangle1.Area()}\n");
+            Console.WriteLine($"Area: {rectangle1.Area()}");
             rectangle1.Height = -4; // This will trigger the validation in the setter
+            Console.WriteLine(rectangle1.Description);
 
             var rectangle2 = new Rectangle(5, 2);
             Console.WriteLine($"Width: {rectangle2.Width}");
             Console.WriteLine($"Height: {rectangle2.Height}");
             Console.WriteLine($"Perimeter: {rectangle2.Perimeter()}");
-            Console.WriteLine($"Area: {rectangle2.Area()}\n");
+            Console.WriteLine($"Area: {rectangle2.Area()}");
+            Console.WriteLine(rectangle2.Description);
 
+            var Person1 = new Person("Nicolás", 1988);
+            //Console.WriteLine($"Person: {Person1.Name}, Age: {Person1.Age}");
 
             Console.WriteLine("Press any key...");
             Console.ReadKey();
@@ -34,17 +38,17 @@ namespace Geometry
         public Rectangle(int width = 1, int height = 1)
         {
             NumberOfSidesReadOnly = 4;
-            _width = ValidateValue(width, nameof(width));
-            _height = ValidateValue(height, nameof(height));
+            this._width = ValidateValue(width, nameof(width));
+            this._height = ValidateValue(height, nameof(height));
         }
         public int Width
         {
-            get => _width;
+            get => this._width;
             set
             {
                 if (value > 0)
                 {
-                    _width = value;
+                    this._width = value;
                 }
                 else
                 {
@@ -54,12 +58,12 @@ namespace Geometry
         }
         public int Height
         {
-            get => _height;
+            get => this._height;
             set
             {
                 if (value > 0)
                 {
-                    _height = value;
+                    this._height = value;
                 }
                 else
                 {
@@ -67,9 +71,9 @@ namespace Geometry
                 }
             }
         }
-        public int Perimeter() => 2 * (_width + _height);
-        public int Area() => _width * _height;
-        
+        public int Perimeter() => 2 * (this._width + this._height);
+        public int Area() => this._width * this._height;
+        public string Description => $"Rectangle with width {this._width} and height {this._height}.";
         private int ValidateValue(int value, string paramName)
         {
             const int defaultValueIfNonPositive = 1;
@@ -80,6 +84,31 @@ namespace Geometry
                 return defaultValueIfNonPositive;
             }
             return value;
+        }
+    }
+
+    class Person
+    {
+
+        public string Name { get; set; }
+        public string LastName { get; set; }
+        public int YearOfBirth { get; set; }
+        public int Age { get; set; }
+        private Person(string name, int yearOfBirth, string lastName) : this(name, yearOfBirth)
+        {
+            this.LastName = lastName;
+        }
+        public Person(string name, int yearOfBirth)
+        {
+            this.Name = name;
+            this.LastName = "";
+            this.YearOfBirth = yearOfBirth;
+            this.Age = DateTime.Now.Year - this.YearOfBirth;
+            this.Introduce();
+        }
+        public void Introduce()
+        {
+            Console.WriteLine($"Hello, my name is {this.Name} {this.LastName} and I am {this.Age} years old.");
         }
     }
 }
